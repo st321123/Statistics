@@ -5,7 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { DropdownMenuDemo } from "../DropDown/DropDown";
+// import { DropdownMenuDemo } from "../DropDown/DropDown";
 
 export function Navbar() {
   const userName = typeof window !== "undefined" ? localStorage.getItem("user") : "";

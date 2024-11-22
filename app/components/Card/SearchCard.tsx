@@ -1,10 +1,9 @@
 "use client"
-import { useEffect, useState} from "react"
+import {  useState} from "react"
 import axios from "axios"
 import { toast, Toaster } from "sonner";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import {  useSetRecoilState } from "recoil";
 import { recentSubmissions, userAtom } from "@/app/recoil/atom/user";
-import Loading from "../../loading";
 import { Button } from "@/components/ui/button"
 import {
   Card,
