@@ -1,9 +1,7 @@
 "use client"
-import {  useState} from "react"
+// import {  useEffect, useState} from "react"
 import axios from "axios"
 import { toast, Toaster } from "sonner";
-import {  useSetRecoilState } from "recoil";
-import { recentSubmissions, userAtom } from "@/app/recoil/atom/user";
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -22,23 +20,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { useRouter } from "next/navigation";
 
 
 
 
 
-export  function SearchCard() {
 
-  const routes = useRouter();
-  const [userName, setUserName] = useState("");
-  const [loading,setLoading] = useState(false);
-  const [data, setData]:any = useState({});
-  const  setUser = useSetRecoilState(userAtom);
-  const [user,setUserNames] = useState("");
-  const setSubmissions = useSetRecoilState(recentSubmissions);
+export  function SearchCard({logg,userName,setData,setUserName,setLogg}:any) {
 
+  
  
+
     const  datresponse = async()=>
       {   
           
@@ -55,11 +47,16 @@ export  function SearchCard() {
           if(Object.keys(data.data).length != 0 && data.data.errors === undefined)
           {
             toast.success("User found ");
-            setUser(userName);
+            setUserName(userName);
             localStorage.setItem("user",userName);
-            setSubmissions(data.data.recentSubmissions)
-            setUserNames(userName);
-            setData(data.data);
+            const imgLInk:any = localStorage.getItem("imgLink");
+            const logg = JSON.parse(imgLInk);
+            const  dat:any  = localStorage.getItem("userStats");
+            const data = JSON.parse(dat);
+            // setSubmissions(data.data.recentSubmissions)
+           
+            setData(data);
+            setLogg(logg);
           }
           else
           {
@@ -78,7 +75,7 @@ export  function SearchCard() {
           
               
           }
-            setLoading(true);
+       
         
       }
   
@@ -101,7 +98,7 @@ export  function SearchCard() {
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="name">User name</Label>
-              <Input id="name" placeholder="Name of website" onChange={(e)=>{setUserName(e.target.value)}} />
+              <Input id="name" placeholder="Name of website" value={userName} onChange={(e)=>{setUserName(e.target.value)}} />
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="framework">Wesbite Name</Label>
@@ -127,7 +124,6 @@ export  function SearchCard() {
       <Toaster />
     </Card>
     
-    {loading && <Button onClick={()=>{routes.push("/components/Stats")}}> View Stats Card</Button>}
     
       </div>
   )
